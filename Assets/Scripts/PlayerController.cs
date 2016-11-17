@@ -2,9 +2,13 @@
 using UnityEngine.Networking;
 using System.Collections;
 
+// TODO: Turn off gvrViewer and Camera for non LocalPlayer without turning off models
+// TODO: Clean up magic numbers 
+// Remember to remove movement testing for deployment!!!
 public class PlayerController : NetworkBehaviour {
 
-	private GvrViewer mCam;
+	private GvrViewer gvrViewer;
+	//private Camera mCam;
 	private GameObject mHead;
 
 	private bool canShoot;
@@ -16,8 +20,15 @@ public class PlayerController : NetworkBehaviour {
 	public Transform bulletSpawn;
 
 	void Awake() {
-		mCam = GetComponentInChildren<GvrViewer> ();
-		mCam.gameObject.SetActive (false);
+//		gvrViewer = GetComponentInChildren<GvrViewer> ();
+//		gvrViewer.enabled = false;
+//
+//		mCam = GetComponentInChildren<Camera> ();
+//		mCam.gameObject.SetActive (false);
+
+		// Currently setting everything inactive if not LocalPlayer
+		gvrViewer = GetComponentInChildren<GvrViewer> ();
+		gvrViewer.gameObject.SetActive (false);
 
 		canShoot = true;
 		canMelee = true;
@@ -30,9 +41,16 @@ public class PlayerController : NetworkBehaviour {
 			return;
 		}
 
+		// Keyboard movement for testing purposes only
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+
+		transform.Rotate(0, x, 0);
+		transform.Translate(0, 0, z);
+		// End testing movement
+
 		// Google cardboard trigger
-		if (Input.GetKeyDown(KeyCode.Space) ||
-			Input.GetButtonDown ("Fire1")) {    
+		if (Input.GetButtonDown ("Fire1")) {   
 			if (canShoot) {
 				StartCoroutine (shoot ());
 			}
@@ -43,19 +61,25 @@ public class PlayerController : NetworkBehaviour {
 		}
 	}
 
-	// TODO: Stop raycast from colliding with face
+	// If the player is looking at a close enemy: melee, otherwise shoot
 	void FixedUpdate() {
-		RaycastHit hit;
+
+		// Layer the enemies reside in
 		int layerMask = 1 << 8;
+		RaycastHit hit;
 		if (mHead) {
-			Debug.DrawRay (mHead.transform.position, mHead.transform.forward * 50f, Color.red, .01f, false);
-			if (Physics.Raycast(mHead.transform.position, mHead.transform.forward, out hit, 50f)) {
-//				Debug.Log ("Hit");
+			if (Physics.Raycast (mHead.transform.position, mHead.transform.forward, out hit, 2f, layerMask)) {
+				canShoot = false;
+				canMelee = true;
+
+			} else {
+				canShoot = true;
+				canMelee = false;
 			}
 		}
 	}
 
-
+	// Coroutine for shooting
 	public IEnumerator shoot () {
 		CmdFire ();
 
@@ -64,6 +88,7 @@ public class PlayerController : NetworkBehaviour {
 		canShoot = true;
 	}
 
+	// Coroutine for meleeing
 	public IEnumerator melee () {
 		CmdMelee ();
 
@@ -72,7 +97,7 @@ public class PlayerController : NetworkBehaviour {
 		canMelee = true;
 	}
 
-	// Fires a bullet
+	// Fires a bullet from the gun tip
 	[Command]   
 	void CmdFire() {
 		GameObject bullet = (GameObject)Instantiate (
@@ -80,13 +105,14 @@ public class PlayerController : NetworkBehaviour {
 			bulletSpawn.position,
 			bulletSpawn.rotation);
 		
-		bullet.GetComponent<Rigidbody>().velocity = bulletSpawn.transform.forward * 6;
+		bullet.GetComponent<Rigidbody>().velocity = bulletSpawn.transform.forward * 10f;
 
 		NetworkServer.Spawn (bullet);
 
 		Destroy (bullet, 2f);
 	}
 
+	// Melees
 	[Command]
 	void CmdMelee() {
 		GameObject weapon = (GameObject)Instantiate (
@@ -100,11 +126,16 @@ public class PlayerController : NetworkBehaviour {
 		Destroy (weapon, .5f);
 	}
 		
+	// Initializes the LocalPlayer
 	public override void OnStartLocalPlayer() {
 		GetComponent<MeshRenderer> ().material.color = Color.blue;
-		mCam.gameObject.SetActive (true);
 
-		if (mCam.gameObject.activeSelf) {
+//		gvrViewer.enabled = true;
+//		mCam.gameObject.SetActive (true);
+
+		gvrViewer.gameObject.SetActive (true);
+
+		if (gvrViewer.gameObject.activeSelf) {
 			mHead = GetComponentInChildren<GvrHead> ().gameObject;
 		}
 	}
