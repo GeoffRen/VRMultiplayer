@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HealthBarManager.cs">
+    <Files>
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="26" Column="3" />
+      <File FileName="Assets\Scripts\PlayerSetup.cs" Line="22" Column="54" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="37" Column="1" />
+      <File FileName="Assets\Lobby\Scripts\Lobby\LobbyManager.cs" Line="145" Column="9" />
+      <File FileName="Assets\Lobby\Scripts\Lobby\LobbyMainMenu.cs" Line="63" Column="39" />
+      <File FileName="Assets\Scripts\ScoreManager.cs" Line="23" Column="2" />
+      <File FileName="Assets\Scripts\HealthSettings.cs" Line="12" Column="3" />
+      <File FileName="Assets\Scripts\HealthBarManager.cs" Line="19" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

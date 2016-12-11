@@ -19,7 +19,7 @@ public class PlayerSetup : NetworkBehaviour
 		} else 
 		{
             GameObject.Find("GameManager").GetComponent<GameManager>().numPlayers++;
-			Camera.main.gameObject.SetActive (false);
+			GameObject.Find ("SceneCamera").SetActive (false);
 			for (int i = 0; i < nonLocalComponentsToDisable.Length; i++) {
 				nonLocalComponentsToDisable [i].enabled = true;
 			}

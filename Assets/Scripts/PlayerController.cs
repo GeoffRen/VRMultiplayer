@@ -22,6 +22,11 @@ public class PlayerController : NetworkBehaviour
     public Transform bulletSpawn;
 	public Transform meleeSpawn;
 
+	public static bool attackAction = false;
+	 
+	public float collisionBuffer = 1.0f;
+	private float timeSinceCollision = 1.0f;
+
     void Update()
     {
 
@@ -40,7 +45,7 @@ public class PlayerController : NetworkBehaviour
         // End testing movement
 
         // Google cardboard trigger
-        if (Input.GetButtonDown("Fire1"))
+		if (attackAction)
         {
             if (canShoot)
             {
@@ -51,6 +56,8 @@ public class PlayerController : NetworkBehaviour
             {
                 StartCoroutine(melee());
             }
+
+			attackAction = false;
         }
     }
 
@@ -75,6 +82,8 @@ public class PlayerController : NetworkBehaviour
                 canMelee = false;
             }
         }
+
+		timeSinceCollision += Time.deltaTime;
     }
 
     // Coroutine for shooting
@@ -131,7 +140,7 @@ public class PlayerController : NetworkBehaviour
     // Initializes the LocalPlayer
     public override void OnStartLocalPlayer()
     {
-		mHead = GetComponentInChildren<GvrHead>().gameObject;
+		mHead = GetComponentInChildren<Camera>().gameObject;
     }
 
 
@@ -145,11 +154,15 @@ public class PlayerController : NetworkBehaviour
             GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied();
         }
     }
+
     public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            GetComponent<Health>().TakeDamage(20);
+			if (timeSinceCollision > collisionBuffer) {
+				GetComponent<Health>().TakeDamage(20);
+				timeSinceCollision = 0.0f;
+			}
         }
     }
 }

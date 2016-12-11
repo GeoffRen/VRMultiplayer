@@ -16,7 +16,8 @@ public class ScoreManager : MonoBehaviour {
 
     void Update()
     {
-        text.text = "Score: " + score;
+		if(ScoreSettings.scoreStatus)
+        	text.text = "Score: " + score;
     }
 	
 }
