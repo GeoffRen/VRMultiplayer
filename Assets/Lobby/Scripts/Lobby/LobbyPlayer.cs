@@ -71,7 +71,7 @@ namespace Prototype.NetworkLobby
             base.OnStartAuthority();
 
             //if we return from a game, color of text can still be the one for "Ready"
-            readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
+            //readyButton.transform.GetChild(0).GetComponent<Text>().color = Color.white;
 
            SetupLocalPlayer();
         }
@@ -91,7 +91,7 @@ namespace Prototype.NetworkLobby
             nameInput.interactable = false;
             removePlayerButton.interactable = NetworkServer.active;
 
-            ChangeReadyButtonColor(NotReadyColor);
+            //ChangeReadyButtonColor(NotReadyColor);
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "...";
             readyButton.interactable = false;
@@ -107,10 +107,10 @@ namespace Prototype.NetworkLobby
 
             CheckRemoveButton();
 
-            if (playerColor == Color.white)
-                CmdColorChange();
+            //if (playerColor == Color.white)
+              //  CmdColorChange();
 
-            ChangeReadyButtonColor(JoinColor);
+            //ChangeReadyButtonColor(JoinColor);
 
             readyButton.transform.GetChild(0).GetComponent<Text>().text = "JOIN";
             readyButton.interactable = true;
@@ -165,7 +165,7 @@ namespace Prototype.NetworkLobby
             }
             else
             {
-                ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
+               // ChangeReadyButtonColor(isLocalPlayer ? JoinColor : NotReadyColor);
 
                 Text textComponent = readyButton.transform.GetChild(0).GetComponent<Text>();
                 textComponent.text = isLocalPlayer ? "JOIN" : "...";
