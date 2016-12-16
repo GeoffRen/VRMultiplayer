@@ -17,8 +17,9 @@ public class RiftHealth : Health{
 		currentHealth -= amount;
 
 		if (currentHealth <= 0) {
+			Debug.Log ("SHOULD DIE NOW");
 			if (destroyOnDeath) {
-				GetComponent<RiftPlayerController>().Die();
+				GetComponent<RiftPlayerController> ().RpcDie ();
 			} else {
 				currentHealth = maxHealth;
 

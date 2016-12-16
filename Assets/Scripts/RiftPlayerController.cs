@@ -160,6 +160,19 @@ public class RiftPlayerController : NetworkBehaviour
         }
     }
 
+	[ClientRpc]
+	public void RpcDie()
+	{
+		Debug.Log("Died");
+
+		gameObject.SetActive (false);
+
+		if (isLocalPlayer)
+		{
+			GameObject.Find ("GameManager").GetComponent<GameManager> ().PlayerDied (1);
+		}
+	}
+
     public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))

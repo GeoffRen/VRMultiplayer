@@ -137,7 +137,20 @@ public class PlayerController : NetworkBehaviour
 		mHead = GetComponentInChildren<GvrHead>().gameObject;
     }
 		
-    public void Die()
+	public void Die()
+	{
+		Debug.Log("Died");
+
+		gameObject.SetActive (false);
+
+		if (isLocalPlayer)
+		{
+			GameObject.Find ("GameManager").GetComponent<GameManager> ().PlayerDied (0);
+		}
+	}
+
+	[ClientRpc]
+    public void RpcDie()
     {
         Debug.Log("Died");
 
@@ -148,6 +161,7 @@ public class PlayerController : NetworkBehaviour
 			GameObject.Find ("GameManager").GetComponent<GameManager> ().PlayerDied (0);
 		}
     }
+
     public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))

@@ -1,15 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ScoreManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Health.cs">
     <Files>
-      <File FileName="Assets\Scripts\RiftPlayerController.cs" Line="79" Column="94" />
-      <File FileName="Assets\testScipt.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ViveHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RiftHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CardboardHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="17" Column="4" />
-      <File FileName="Assets\Scripts\ScoreManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ViveHealth.cs" Line="21" Column="42" />
+      <File FileName="Assets\Scripts\RiftHealth.cs" Line="20" Column="33" />
+      <File FileName="Assets\Scripts\CardboardHealth.cs" Line="21" Column="38" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="62" Column="26" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="140" Column="17" />
+      <File FileName="Assets\Scripts\RiftPlayerController.cs" Line="150" Column="3" />
+      <File FileName="Assets\Scripts\VivePlayerController.cs" Line="146" Column="17" />
+      <File FileName="Assets\Scripts\ZombieController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Health.cs" Line="46" Column="38" />
+      <File FileName="Assets\Scripts\HealthBarManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
