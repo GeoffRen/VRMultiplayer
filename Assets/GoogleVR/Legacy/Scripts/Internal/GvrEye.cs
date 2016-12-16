@@ -194,11 +194,11 @@ public class GvrEye : MonoBehaviour {
   }
 
   void OnPreCull() {
-    if (!GvrViewer.Instance.VRModeEnabled || !monoCamera.enabled) {
-      // Keep stereo enabled flag in sync with parent mono camera.
-      cam.enabled = false;
-      return;
-    }
+//    if (!GvrViewer.Instance.VRModeEnabled || !monoCamera.enabled) {
+//      // Keep stereo enabled flag in sync with parent mono camera.
+//      cam.enabled = false;
+//      return;
+//    }
     SetupStereo(/*forceUpdate=*/false);
     if (!controller.directRender && GvrViewer.Instance.StereoScreen != null) {
       // Some image effects clobber the whole screen.  Add a final image effect to the chain
