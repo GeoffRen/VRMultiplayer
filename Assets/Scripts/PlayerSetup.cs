@@ -19,6 +19,15 @@ public class PlayerSetup : NetworkBehaviour
 				comp.enabled = true;
 			}
 		}
+
+		if (!isLocalPlayer) {
+
+			//Camera.main.gameObject.SetActive (false);
+			GameManager.numPlayers++;
+			foreach (Behaviour comp in localComponentsToEnable) {
+				comp.enabled = false;
+			}
+		}
 	}
 
 }
